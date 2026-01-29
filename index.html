@@ -13,7 +13,7 @@
         .video-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid #222; cursor: pointer; position: relative; }
         .video-card img { width: 100%; height: 110px; object-fit: cover; display: block; }
         .play-overlay { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; text-shadow: 0 0 10px #000; }
-        .video-info { padding: 8px; font-size: 12px; text-align: center; font-weight: bold; background: #161616; }
+        .video-info { padding: 8px; font-size: 12px; text-align: center; font-weight: bold; background: #161616; height: 40px; overflow: hidden; }
         #player-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; }
         .close-btn { position: absolute; top: 15px; right: 15px; background: var(--main-red); color: white; border: none; padding: 8px 15px; border-radius: 4px; z-index: 10001; font-weight: bold; }
         iframe { width: 100%; height: 100%; border: none; }
@@ -30,24 +30,22 @@
     </div>
 
     <script>
-        // --- قائمة الفيديوهات الخاصة بك ---
+        // ==========================================
+        //  هذا هو المكان المخصص للفيديوهات (قائمة المقاطع)
+        // ==========================================
         const myVideos = [
             {
-                title: "شك طيزها", 
-                img: "https://files.catbox.moe/d9kgzk.jpg",
-                url: "https://xhamster.com/embed/xh5eAxA" // تم تحويل الرابط إلى embed ليعمل المشغل
+                title: "كوريات شكك طيازهن", 
+                img: "https://files.catbox.moe/d9kgzk.jpg", 
+                url: "https://missav.ws/en/embedded/simw-002-uncensored-leak" 
             }
+            // لإضافة فيديو جديد، ضع فاصلة هنا وأضف الكود الجديد
         ];
-const myVideos = [
-    {
-        title: "كوريات شكك طيازهن", 
-        img: "https://files.catbox.moe/d9kgzk.jpg", 
-        // لاحظ إضافة كلمة /embedded/ في الرابط لكي يعمل داخل موقعك
-        url: "https://missav.ws/en/embedded/simw-002-uncensored-leak" 
-    }
-];
+        // ==========================================
 
         const grid = document.getElementById('video-grid');
+        
+        // وظيفة عرض المقاطع في الصفحة
         myVideos.forEach(vid => {
             grid.innerHTML += `
                 <div class="video-card" onclick="openPlayer('${vid.url}')">
@@ -57,15 +55,20 @@ const myVideos = [
                 </div>`;
         });
 
+        // وظيفة فتح المشغل وتشغيل الإعلان
         function openPlayer(videoUrl) {
-            // رابط الإعلان الخاص بك
+            // رابط الإعلان (سمارت لينك Monetag)
             var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
             
+            // فتح الإعلان في نافذة جديدة
             window.open(smartLink, '_blank'); 
+            
+            // تشغيل الفيديو داخل الموقع
             document.getElementById('video-iframe').src = videoUrl;
             document.getElementById('player-overlay').style.display = 'block';
         }
 
+        // وظيفة إغلاق المشغل
         function closePlayer() {
             document.getElementById('player-overlay').style.display = 'none';
             document.getElementById('video-iframe').src = '';
@@ -73,3 +76,4 @@ const myVideos = [
     </script>
 </body>
 </html>
+
