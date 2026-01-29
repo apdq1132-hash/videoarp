@@ -30,12 +30,12 @@
     </div>
 
     <script>
-        // --- قائمة الفيديوهات ---
+        // --- قائمة الفيديوهات الخاصة بك ---
         const myVideos = [
             {
-                title: "المقطع الأول",
-                img: "https://files.catbox.moe/d9kgzk.jpg", // صورتك التي تأكدنا من عملها
-                url: "ضع_رابط_تضمين_الفيديو_هنا" // استبدل هذا برابط Embed من DoodStream
+                title: "شك طيزها", 
+                img: "https://files.catbox.moe/d9kgzk.jpg",
+                url: "https://xhamster.com/embed/xh5eAxA" // تم تحويل الرابط إلى embed ليعمل المشغل
             }
         ];
 
@@ -50,13 +50,10 @@
         });
 
         function openPlayer(videoUrl) {
-            // رابط السمارت لينك الجديد الخاص بك (Direct Link)
+            // رابط الإعلان الخاص بك
             var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
             
-            // فتح الإعلان في نافذة جديدة عند الضغط
             window.open(smartLink, '_blank'); 
-            
-            // تشغيل الفيديو داخل المشغل
             document.getElementById('video-iframe').src = videoUrl;
             document.getElementById('player-overlay').style.display = 'block';
         }
