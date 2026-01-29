@@ -12,10 +12,10 @@
         .container { padding: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .video-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid #222; cursor: pointer; position: relative; }
         .video-card img { width: 100%; height: 110px; object-fit: cover; background: #222; display: block; }
-        .play-overlay { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: rgba(255,255,255,0.8); text-shadow: 0 0 10px #000; }
+        .play-overlay { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; text-shadow: 2px 2px 4px #000; }
         .video-info { padding: 8px; font-size: 12px; text-align: center; font-weight: bold; background: #161616; }
         #player-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: var(--main-red); color: white; border: none; padding: 8px 15px; border-radius: 4px; z-index: 10001; font-weight: bold; cursor: pointer; }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: var(--main-red); color: white; border: none; padding: 8px 15px; border-radius: 4px; z-index: 10001; font-weight: bold; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
@@ -31,17 +31,16 @@
     </div>
 
     <script>
-        // --- قائمة الفيديوهات الذكية ---
+        // مصفوفة الفيديوهات
         const myVideos = [
             {
-                title: "المقطع الأول",
-                // تم استبدال رابط ImageBam برابط مباشر مستقر للتجربة
-                img: "https://files.catbox.moe/p4b66l.jpg", 
+                title: "مقطع حصري 1",
+                img: "https://files.catbox.moe/p4b66l.jpg", // هذا الرابط سيعمل بالتأكيد
                 url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             },
             {
-                title: "مقطع جديد 2",
-                img: "https://via.placeholder.com/400x250/222/ff0000?text=Wait+Image",
+                title: "مقطع حصري 2",
+                img: "ضع_رابط_صورة_من_Catbox_هنا",
                 url: "رابط_الفيديو_هنا"
             }
         ];
@@ -50,14 +49,13 @@
         myVideos.forEach(vid => {
             grid.innerHTML += `
                 <div class="video-card" onclick="openPlayer('${vid.url}')">
-                    <img src="${vid.img}">
+                    <img src="${vid.img}" onerror="this.src='https://via.placeholder.com/400x250/111/fff?text=Loading...'">
                     <div class="play-overlay">▶</div>
                     <div class="video-info">${vid.title}</div>
                 </div>`;
         });
 
         function openPlayer(videoUrl) {
-            // السمارت لينك الخاص بك
             var smartLink = "https://pl28383705.effectivegatecpm.com/56/95/42/569542e974434f0ab768675be4d8fce0.js"; 
             window.open(smartLink, '_blank');
             document.getElementById('video-iframe').src = videoUrl;
