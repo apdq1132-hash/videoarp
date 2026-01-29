@@ -31,27 +31,40 @@
     </div>
 
     <script>
-        // --- قائمة الفيديوهات (أضف هنا فقط مستقبلاً) ---
+        // --- قائمة الفيديوهات (عدل الروابط هنا فقط مستقبلاً) ---
         const myVideos = [
             {
-                title: "مقطع حصري 1",
-                img: "https://images2.imagebam.com/9b/7f/48/ME1A6CAD.jpg",
+                title: "المقطع التجريبي",
+                img: "https://via.placeholder.com/400x250/111/ff0000?text=Video+1", // رابط تجريبي مؤقت لضمان العمل
                 url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             },
             {
-                title: "مقطع حصري 2",
-                img: "رابط_صورة_2",
-                url: "رابط_تضمين_2"
+                title: "مقطع جديد 2",
+                img: "ضع_رابط_الصورة_هنا",
+                url: "ضع_رابط_الفيديو_هنا"
+            },
+            {
+                title: "مقطع جديد 3",
+                img: "ضع_رابط_الصورة_هنا",
+                url: "ضع_رابط_الفيديو_هنا"
+            },
+            {
+                title: "مقطع جديد 4",
+                img: "ضع_رابط_الصورة_هنا",
+                url: "ضع_رابط_الفيديو_هنا"
+            },
+            {
+                title: "مقطع جديد 5",
+                img: "ضع_رابط_الصورة_هنا",
+                url: "ضع_رابط_الفيديو_هنا"
             }
-            // لإضافة فيديو ثالث، انسخ الأسطر من { إلى } وضعها هنا مع فاصلة
         ];
 
-        // كود بناء الموقع تلقائياً
         const grid = document.getElementById('video-grid');
         myVideos.forEach(vid => {
             grid.innerHTML += `
                 <div class="video-card" onclick="openPlayer('${vid.url}')">
-                    <img src="${vid.img}">
+                    <img src="${vid.img}" onerror="this.src='https://via.placeholder.com/400x250/222/fff?text=No+Image'">
                     <div class="play-overlay">▶</div>
                     <div class="video-info">${vid.title}</div>
                 </div>`;
