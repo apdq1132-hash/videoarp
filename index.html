@@ -30,22 +30,16 @@
     </div>
 
     <script>
-        // ==========================================
-        //  هذا هو المكان المخصص للفيديوهات (قائمة المقاطع)
-        // ==========================================
+        // التعديل تم هنا: إضافة /embedded/ للرابط ليعمل المشغل
         const myVideos = [
             {
-                title: "كوريات شكك طيازهن", 
+                title: "SIMW-001 UNCENSORED LEAK", 
                 img: "https://files.catbox.moe/d9kgzk.jpg", 
-                url: "https://missav.ws/en/embedded/simw-002-uncensored-leak" 
+                url: "https://missav.ws/en/embedded/simw-001-uncensored-leak" 
             }
-            // لإضافة فيديو جديد، ضع فاصلة هنا وأضف الكود الجديد
         ];
-        // ==========================================
 
         const grid = document.getElementById('video-grid');
-        
-        // وظيفة عرض المقاطع في الصفحة
         myVideos.forEach(vid => {
             grid.innerHTML += `
                 <div class="video-card" onclick="openPlayer('${vid.url}')">
@@ -55,20 +49,14 @@
                 </div>`;
         });
 
-        // وظيفة فتح المشغل وتشغيل الإعلان
         function openPlayer(videoUrl) {
-            // رابط الإعلان (سمارت لينك Monetag)
+            // رابط الإعلان الخاص بك
             var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
-            
-            // فتح الإعلان في نافذة جديدة
             window.open(smartLink, '_blank'); 
-            
-            // تشغيل الفيديو داخل الموقع
             document.getElementById('video-iframe').src = videoUrl;
             document.getElementById('player-overlay').style.display = 'block';
         }
 
-        // وظيفة إغلاق المشغل
         function closePlayer() {
             document.getElementById('player-overlay').style.display = 'none';
             document.getElementById('video-iframe').src = '';
@@ -76,4 +64,3 @@
     </script>
 </body>
 </html>
-
