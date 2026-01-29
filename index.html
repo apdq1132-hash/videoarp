@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Video Hub</title>
+    <title>Video Hub Pro</title>
     <style>
         :root { --main-red: #ff0000; --bg-black: #0a0a0a; --card-bg: #111; }
         body { background-color: var(--bg-black); color: white; font-family: sans-serif; margin: 0; padding: 0; }
@@ -30,12 +30,12 @@
     </div>
 
     <script>
-        // --- قائمة الفيديوهات الذكية ---
+        // --- قائمة الفيديوهات ---
         const myVideos = [
             {
                 title: "المقطع الأول",
-                img: "https://files.catbox.moe/d9kgzk.jpg", // الرابط الجديد الذي أرسلته
-                url: "رابط_تضمين_الفيديو_هنا" // لا تنسَ وضع رابط التضمين من DoodStream
+                img: "https://files.catbox.moe/d9kgzk.jpg", // صورتك التي تأكدنا من عملها
+                url: "ضع_رابط_تضمين_الفيديو_هنا" // استبدل هذا برابط Embed من DoodStream
             }
         ];
 
@@ -50,9 +50,13 @@
         });
 
         function openPlayer(videoUrl) {
-            // السمارت لينك الخاص بك من Monetag
-            var smartLink = "https://pl28383705.effectivegatecpm.com/56/95/42/569542e974434f0ab768675be4d8fce0.js"; 
-            window.open(smartLink, '_blank');
+            // رابط السمارت لينك الجديد الخاص بك (Direct Link)
+            var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
+            
+            // فتح الإعلان في نافذة جديدة عند الضغط
+            window.open(smartLink, '_blank'); 
+            
+            // تشغيل الفيديو داخل المشغل
             document.getElementById('video-iframe').src = videoUrl;
             document.getElementById('player-overlay').style.display = 'block';
         }
