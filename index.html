@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Video Hub Pro</title>
+    <title>Video Hub</title>
     <style>
         :root { --main-red: #ff0000; --bg-black: #0a0a0a; --card-bg: #111; }
         body { background-color: var(--bg-black); color: white; font-family: sans-serif; margin: 0; padding: 0; }
@@ -11,8 +11,8 @@
         .header h1 { margin: 0; font-size: 18px; color: var(--main-red); }
         .container { padding: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .video-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid #222; cursor: pointer; position: relative; }
-        .video-card img { width: 100%; height: 110px; object-fit: cover; background: #222; display: block; }
-        .play-overlay { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; text-shadow: 2px 2px 4px #000; }
+        .video-card img { width: 100%; height: 110px; object-fit: cover; display: block; }
+        .play-overlay { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; text-shadow: 0 0 10px #000; }
         .video-info { padding: 8px; font-size: 12px; text-align: center; font-weight: bold; background: #161616; }
         #player-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; }
         .close-btn { position: absolute; top: 15px; right: 15px; background: var(--main-red); color: white; border: none; padding: 8px 15px; border-radius: 4px; z-index: 10001; font-weight: bold; }
@@ -21,8 +21,7 @@
 </head>
 <body>
 
-    <div class="header"><h1>مشاهدة المقاطع الحصرية 🔥</h1></div>
-
+    <div class="header"><h1>المقاطع الحصرية 🔥</h1></div>
     <div class="container" id="video-grid"></div>
 
     <div id="player-overlay">
@@ -31,17 +30,12 @@
     </div>
 
     <script>
-        // مصفوفة الفيديوهات
+        // --- قائمة الفيديوهات الذكية ---
         const myVideos = [
             {
-                title: "مقطع حصري 1",
-                img: "https://files.catbox.moe/p4b66l.jpg", // هذا الرابط سيعمل بالتأكيد
-                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-            },
-            {
-                title: "مقطع حصري 2",
-                img: "ضع_رابط_صورة_من_Catbox_هنا",
-                url: "رابط_الفيديو_هنا"
+                title: "المقطع الأول",
+                img: "https://files.catbox.moe/d9kgzk.jpg", // الرابط الجديد الذي أرسلته
+                url: "رابط_تضمين_الفيديو_هنا" // لا تنسَ وضع رابط التضمين من DoodStream
             }
         ];
 
@@ -49,13 +43,14 @@
         myVideos.forEach(vid => {
             grid.innerHTML += `
                 <div class="video-card" onclick="openPlayer('${vid.url}')">
-                    <img src="${vid.img}" onerror="this.src='https://via.placeholder.com/400x250/111/fff?text=Loading...'">
+                    <img src="${vid.img}">
                     <div class="play-overlay">▶</div>
                     <div class="video-info">${vid.title}</div>
                 </div>`;
         });
 
         function openPlayer(videoUrl) {
+            // السمارت لينك الخاص بك من Monetag
             var smartLink = "https://pl28383705.effectivegatecpm.com/56/95/42/569542e974434f0ab768675be4d8fce0.js"; 
             window.open(smartLink, '_blank');
             document.getElementById('video-iframe').src = videoUrl;
