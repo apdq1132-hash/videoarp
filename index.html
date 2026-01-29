@@ -26,16 +26,15 @@
 
     <div id="player-overlay">
         <button class="close-btn" onclick="closePlayer()">إغلاق X</button>
-        <iframe id="video-iframe" src="" allowfullscreen></iframe>
+        <iframe id="video-iframe" src="" allowfullscreen allow="autoplay"></iframe>
     </div>
 
     <script>
-        // --- قائمة الفيديوهات ---
         const myVideos = [
             {
-                title: "المقطع الأول",
-                img: "https://files.catbox.moe/d9kgzk.jpg", // صورتك التي تأكدنا من عملها
-                url: "https://myvidplay.com/e/bdjie1si99b4" // استبدل هذا برابط Embed من DoodStream
+                title: "شاهد المقطع الآن",
+                img: "https://files.catbox.moe/d9kgzk.jpg", 
+                url: "https://myvidplay.com/e/bdjie1si99b4" 
             }
         ];
 
@@ -50,15 +49,13 @@
         });
 
         function openPlayer(videoUrl) {
-            // رابط السمارت لينك الجديد الخاص بك (Direct Link)
-            var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
-            
-            // فتح الإعلان في نافذة جديدة عند الضغط
-            window.open(smartLink, '_blank'); 
-            
-            // تشغيل الفيديو داخل المشغل
+            // 1. تشغيل الفيديو أولاً لضمان عمل المشغل
             document.getElementById('video-iframe').src = videoUrl;
             document.getElementById('player-overlay').style.display = 'block';
+
+            // 2. محاولة فتح الإعلان في نافذة جديدة (Popup)
+            var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
+            window.open(smartLink, '_blank'); 
         }
 
         function closePlayer() {
