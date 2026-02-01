@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="yandex-verification" content="a802d131d1eebddb" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Video Hub Pro</title>
     <style>
@@ -21,16 +21,12 @@
     </style>
 </head>
 <body>
-    <div style="display:none;">Verification: a802d131d1eebddb</div>
-
     <div class="header"><h1>المقاطع الحصرية 🔥</h1></div>
     <div class="container" id="video-grid"></div>
-
     <div id="player-overlay">
         <button class="close-btn" onclick="closePlayer()">إغلاق X</button>
         <iframe id="video-iframe" src="" allowfullscreen></iframe>
     </div>
-
     <script>
         const myVideos = [
             { title: " المحامي ينيج المنقبة ", img: "https://pomf2.lain.la/f/blffki4q.jpg", url: "https://pomf2.lain.la/f/2zv7s4.mp4" },
@@ -40,24 +36,16 @@
             { title: "عراقية يغتصبها", img: "https://pomf2.lain.la/f/g9d9ez3f.jpg", url: "https://pomf2.lain.la/f/oeuqnwan.mp4" },
             { title: " خدرت قبل النيج", img: "https://pomf2.lain.la/f/djucfwji.jpg", url: "https://pomf2.lain.la/f/ql3ikm3j.mp4" }
         ];
-
         const grid = document.getElementById('video-grid');
         myVideos.forEach(vid => {
-            grid.innerHTML += `
-                <div class="video-card" onclick="openPlayer('${vid.url}')">
-                    <img src="${vid.img}">
-                    <div class="play-overlay">▶</div>
-                    <div class="video-info">${vid.title}</div>
-                </div>`;
+            grid.innerHTML += `<div class="video-card" onclick="openPlayer('${vid.url}')"><img src="${vid.img}"><div class="play-overlay">▶</div><div class="video-info">${vid.title}</div></div>`;
         });
-
         function openPlayer(videoUrl) {
             var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
             window.open(smartLink, '_blank'); 
             document.getElementById('video-iframe').src = videoUrl;
             document.getElementById('player-overlay').style.display = 'block';
         }
-
         function closePlayer() {
             document.getElementById('player-overlay').style.display = 'none';
             document.getElementById('video-iframe').src = '';
