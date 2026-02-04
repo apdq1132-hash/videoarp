@@ -15,24 +15,34 @@
         .video-card img { width: 100%; height: 110px; object-fit: cover; display: block; }
         .play-overlay { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; text-shadow: 0 0 10px #000; }
         .video-info { padding: 8px; font-size: 12px; text-align: center; font-weight: bold; background: #161616; }
+        
+        /* طبقة المشغل والانتظار */
         #player-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; }
         .close-btn { position: absolute; top: 15px; right: 15px; background: var(--main-red); color: white; border: none; padding: 8px 15px; border-radius: 4px; z-index: 10001; font-weight: bold; cursor: pointer; }
-        .close-btn:disabled { background: #555; cursor: not-allowed; }
-        iframe { width: 100%; height: 100%; border: none; display: none; } /* مخفي حتى ينتهي العداد */
-        #timer-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; }
+        
+        /* واجهة الانتظار */
+        #waiting-screen { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 90%; }
+        .ad-btn { background: #28a745; color: white; padding: 20px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%; }
+        
+        iframe { width: 100%; height: 100%; border: none; display: none; }
     </style>
 </head>
 <body>
     <div class="header"><h1>المقاطع الحصرية 🔥</h1></div>
     <div class="container" id="video-grid"></div>
+
     <div id="player-overlay">
-        <button id="close-button" class="close-btn" onclick="closePlayer()" disabled>يرجى الانتظار (10)</button>
-        <div id="timer-msg">
-            <h3 style="color:white;">جاري تأكيد المشاهدة...</h3>
-            <p>ابقَ في صفحة الإعلان 10 ثوانٍ ليفتح الفيديو</p>
+        <button id="close-button" class="close-btn" onclick="closePlayer()">إغلاق X</button>
+        
+        <div id="waiting-screen">
+            <h2 style="color: var(--main-red);">تأكيد هويتك للمشاهدة</h2>
+            <p>يرجى الضغط على الزر أدناه والبقاء في صفحة الإعلان لمدة 10 ثوانٍ لفتح الفيديو.</p>
+            <button id="trigger-ad-btn" class="ad-btn" onclick="startAdProcess()">إضغط هنا لمشاهدة الإعلان (10 ثوانٍ)</button>
         </div>
+
         <iframe id="video-iframe" src="" allowfullscreen></iframe>
     </div>
+
     <script>
         const myVideos = [
             { title: "نيج وشم وبوس ورضع", img: "https://pomf2.lain.la/f/7ljeiyih.jpg", url: "https://pomf2.lain.la/f/2kmvmtqc.mp4" },
@@ -43,33 +53,39 @@
             { title: "عراقية يغتصبها", img: "https://pomf2.lain.la/f/g9d9ez3f.jpg", url: "https://pomf2.lain.la/f/oeuqnwan.mp4" },
             { title: " خدرت قبل النيج", img: "https://pomf2.lain.la/f/djucfwji.jpg", url: "https://pomf2.lain.la/f/ql3ikm3j.mp4" }
         ];
+
+        let currentVideoUrl = "";
         const grid = document.getElementById('video-grid');
+        
         myVideos.forEach(vid => {
-            grid.innerHTML += `<div class="video-card" onclick="openPlayer('${vid.url}')"><img src="${vid.img}"><div class="play-overlay">▶</div><div class="video-info">${vid.title}</div></div>`;
+            grid.innerHTML += `<div class="video-card" onclick="preparePlayer('${vid.url}')"><img src="${vid.img}"><div class="play-overlay">▶</div><div class="video-info">${vid.title}</div></div>`;
         });
 
-        function openPlayer(videoUrl) {
-            var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
-            window.open(smartLink, '_blank'); 
-            
+        function preparePlayer(videoUrl) {
+            currentVideoUrl = videoUrl;
             document.getElementById('player-overlay').style.display = 'block';
             document.getElementById('video-iframe').style.display = 'none';
-            document.getElementById('timer-msg').style.display = 'block';
-            
+            document.getElementById('waiting-screen').style.display = 'block';
+            document.getElementById('trigger-ad-btn').innerText = "إضغط هنا لمشاهدة الإعلان (10 ثوانٍ)";
+            document.getElementById('trigger-ad-btn').disabled = false;
+        }
+
+        function startAdProcess() {
+            var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
+            window.open(smartLink, '_blank'); // فتح الإعلان
+
             let timeLeft = 10;
-            const btn = document.getElementById('close-button');
+            const btn = document.getElementById('trigger-ad-btn');
             btn.disabled = true;
 
-            let countdown = setInterval(function() {
+            let timer = setInterval(function() {
                 timeLeft--;
-                btn.innerText = "يرجى الانتظار (" + timeLeft + ")";
+                btn.innerText = "يرجى الانتظار في الإعلان... (" + timeLeft + ")";
                 
                 if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    btn.innerText = "إغلاق X";
-                    btn.disabled = false;
-                    document.getElementById('timer-msg').style.display = 'none';
-                    document.getElementById('video-iframe').src = videoUrl;
+                    clearInterval(timer);
+                    document.getElementById('waiting-screen').style.display = 'none';
+                    document.getElementById('video-iframe').src = currentVideoUrl;
                     document.getElementById('video-iframe').style.display = 'block';
                 }
             }, 1000);
