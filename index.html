@@ -16,11 +16,9 @@
         .play-overlay { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; text-shadow: 0 0 10px #000; }
         .video-info { padding: 8px; font-size: 12px; text-align: center; font-weight: bold; background: #161616; }
         
-        /* طبقة المشغل والانتظار */
         #player-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; }
         .close-btn { position: absolute; top: 15px; right: 15px; background: var(--main-red); color: white; border: none; padding: 8px 15px; border-radius: 4px; z-index: 10001; font-weight: bold; cursor: pointer; }
         
-        /* واجهة الانتظار */
         #waiting-screen { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 90%; }
         .ad-btn { background: #28a745; color: white; padding: 20px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%; }
         
@@ -35,9 +33,9 @@
         <button id="close-button" class="close-btn" onclick="closePlayer()">إغلاق X</button>
         
         <div id="waiting-screen">
-            <h2 style="color: var(--main-red);">تأكيد هويتك للمشاهدة</h2>
-            <p>يرجى الضغط على الزر أدناه والبقاء في صفحة الإعلان لمدة 10 ثوانٍ لفتح الفيديو.</p>
-            <button id="trigger-ad-btn" class="ad-btn" onclick="startAdProcess()">إضغط هنا لمشاهدة الإعلان (10 ثوانٍ)</button>
+            <h2 id="wait-title" style="color: var(--main-red);">تأكيد المشاهدة</h2>
+            <p id="wait-msg">اضغط على الزر وشاهد الإعلان لثوانٍ ليفتح الفيديو</p>
+            <button id="trigger-ad-btn" class="ad-btn" onclick="openAd()">إضغط هنا لمشاهدة الإعلان</button>
         </div>
 
         <iframe id="video-iframe" src="" allowfullscreen></iframe>
@@ -55,45 +53,74 @@
         ];
 
         let currentVideoUrl = "";
+        let adOpened = false;
+        let timeLeft = 10;
+        let timerStarted = false;
+
         const grid = document.getElementById('video-grid');
-        
         myVideos.forEach(vid => {
             grid.innerHTML += `<div class="video-card" onclick="preparePlayer('${vid.url}')"><img src="${vid.img}"><div class="play-overlay">▶</div><div class="video-info">${vid.title}</div></div>`;
         });
 
         function preparePlayer(videoUrl) {
             currentVideoUrl = videoUrl;
+            adOpened = false;
+            timerStarted = false;
+            timeLeft = 10;
             document.getElementById('player-overlay').style.display = 'block';
             document.getElementById('video-iframe').style.display = 'none';
             document.getElementById('waiting-screen').style.display = 'block';
-            document.getElementById('trigger-ad-btn').innerText = "إضغط هنا لمشاهدة الإعلان (10 ثوانٍ)";
-            document.getElementById('trigger-ad-btn').disabled = false;
+            document.getElementById('trigger-ad-btn').innerText = "إضغط هنا لمشاهدة الإعلان";
+            document.getElementById('wait-title').innerText = "تأكيد المشاهدة";
+            document.getElementById('wait-msg').innerText = "اضغط على الزر وشاهد الإعلان لثوانٍ ليفتح الفيديو";
         }
 
-        function startAdProcess() {
+        function openAd() {
             var smartLink = "https://openairtowhardworking.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a"; 
-            window.open(smartLink, '_blank'); // فتح الإعلان
+            window.open(smartLink, '_blank');
+            adOpened = true;
+            document.getElementById('wait-msg').innerText = "اذهب لصفحة الإعلان الآن.. العداد سيبدأ بمجرد مغادرتك لهذه الصفحة";
+        }
 
-            let timeLeft = 10;
-            const btn = document.getElementById('trigger-ad-btn');
-            btn.disabled = true;
+        // مراقبة مغادرة الصفحة وبدء العد
+        window.onblur = function() {
+            if (adOpened && !timerStarted) {
+                timerStarted = true;
+                let countdown = setInterval(function() {
+                    timeLeft--;
+                    if (timeLeft > 0) {
+                        console.log("الزائر في الإعلان.. الوقت المتبقي: " + timeLeft);
+                    } else {
+                        clearInterval(countdown);
+                    }
+                }, 1000);
+            }
+        };
 
-            let timer = setInterval(function() {
-                timeLeft--;
-                btn.innerText = "يرجى الانتظار في الإعلان... (" + timeLeft + ")";
-                
+        // عند عودة الزائر للموقع
+        window.onfocus = function() {
+            if (timerStarted) {
                 if (timeLeft <= 0) {
-                    clearInterval(timer);
+                    // إذا عاد بعد انتهاء الوقت
                     document.getElementById('waiting-screen').style.display = 'none';
                     document.getElementById('video-iframe').src = currentVideoUrl;
                     document.getElementById('video-iframe').style.display = 'block';
+                } else {
+                    // إذا عاد قبل انتهاء الوقت
+                    alert("يجب البقاء في صفحة الإعلان لمدة 10 ثوانٍ كاملة. متبقي لك " + timeLeft + " ثانية.");
+                    // إعادة ضبط العداد لإجباره على العودة
+                    timeLeft = 10; 
+                    timerStarted = false;
+                    document.getElementById('wait-msg').innerText = "فشل التأكيد! يجب العودة للإعلان والبقاء 10 ثوانٍ.";
                 }
-            }, 1000);
-        }
+            }
+        };
 
         function closePlayer() {
             document.getElementById('player-overlay').style.display = 'none';
             document.getElementById('video-iframe').src = '';
+            adOpened = false;
+            timerStarted = false;
         }
     </script>
 </body>
